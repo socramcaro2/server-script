@@ -7,7 +7,6 @@ Importante recalcar que para la correcta ejecucion se deberia ejecutar como sudo
 Esta principalmente orientado a ser usado en entorno de servidores tipo home lab, y deja margen de maniobra para que selecciones versiones o ingreses keys o lo necesario segun lo que se seleccione dentro del script
 
 ```xml
-<key>
      ___       ___       ___       ___       ___       ___       ___   
     /\  \     /\  \     /\  \     /\  \     /\  \     /\__\     /\__\  
    /::\  \   /::\  \   /::\  \   /::\  \   /::\  \   /::L_L_   /:/ _/_ 
@@ -25,8 +24,7 @@ Esta principalmente orientado a ser usado en entorno de servidores tipo home lab
   3. Instalar portainer (solo se podra configurar como edge agent)
   4. instalar traefik
   5. instalar docker y traefik
-  0. salir</key>
-<true/>
+  0. salir
 ```
 
 ## Tailscale
