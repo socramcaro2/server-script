@@ -40,7 +40,8 @@ Me he basado en la documentacion que tiene racher sobre su instalacion de Docker
 
 ## Traefik
  
-Este script para instalar Traefik con docker me base en la guía de TechnoTim para traefik 3, simplemente sigo los pasos que indica la guia y dejo seleccionar algunos aspectos para que la instalacion sea tuya propia.
+Este script para instalar Traefik con docker me base en la guía de `[TechnoTim para traefik 3](https://technotim.live/posts/traefik-3-docker-certificates/), simplemente sigo los pasos que indica la guia y dejo seleccionar algunos aspectos para que la instalacion sea tuya propia.
+
 
 ## Futuro
 
