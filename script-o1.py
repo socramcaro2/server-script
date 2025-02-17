@@ -1,7 +1,6 @@
-
-
 import os
-import sys
+import bcrypt
+execute = os.system
 
 ################################################################################
 # Esta funcion solo cambiaria el menu sin afectar al funcionamiento del script #
@@ -73,19 +72,19 @@ def tailscale():
   key = str(input("\n  Ingresa una auth key (en blanco para ignorar) \n \n  "))
   auth_command = f'--auth-key={key}' if key else ""
   
-  os.system(f"curl -fsSL https://tailscale.com/install.sh | sh && sudo tailscale up {auth_command}")
+  execute(f"curl -fsSL https://tailscale.com/install.sh | sh && sudo tailscale up {auth_command}")
 
 def docker():
   
   versi0n = str(input("\n  Que version (en blanco para ultima) \n \n  "))
   instalacion = f'--version {versi0n}' if versi0n else ''
   
-  os.system('curl -fsSL https://get.docker.com -o install-docker.sh')
-  os.system(f'sudo sh install-docker.sh {instalacion}')
-  os.system('dockerd-rootless-setuptool.sh install')
+  execute('curl -fsSL https://get.docker.com -o install-docker.sh')
+  execute(f'sudo sh install-docker.sh {instalacion}')
+  execute('dockerd-rootless-setuptool.sh install')
   
 def portainer():
-  os.system()
+  execute
   
 
   
@@ -210,26 +209,45 @@ certificatesResolvers:
           - "1.0.0.1:53" """
     
   #comandos que se ejecutaran
-  os.system('sudo su')
-  os.system('mkdir docker_volumes && cd docker_volumes')
-  os.system('mkdir traefik && cd traefik')
-  os.system('touch docker-compose.yaml')
+  execute('sudo su')
+  execute('mkdir docker_volumes && cd docker_volumes')
+  execute('mkdir traefik && cd traefik')
+  execute('touch docker-compose.yaml')
   with open('docker-compose.yaml', "w", encoding="utf-8") as Docker_archivo: # escribir sobre el archivo
     Docker_archivo.write(Docker_Compose)
-  os.system('touch cf_api_token.txt')
+  execute('touch cf_api_token.txt')
   with open('cf_api_token.txt', "w", encoding='utf-8') as TOKEN:
     TOKEN.write(Cloudfare_Api)
-  os.system('mkdir data && cd data')
-  os.system('touch acme.json && chmod 600 acme.json')
-  os.system('touch traefik.yml')
+    execute('touch .env')
+  #
+  salt = bcrypt.gensalt()
+  hash_bcrypt = bcrypt.hashpw(Contraseña_panel.encode(), salt)
+  hash_formateado = hash_bcrypt.decode().replace("$", "$$")
+  hash_apache = f"{Usuario_panel}:{hash_formateado}"
+  with open('.env', "w", encoding="utf-8") as credenciales:
+    credenciales.write(f'TRAEFIK_DASHBOARD_CREDENTIALS={hash_apache}')
+  # execute(f'echo $(htpasswd -nbB {Usuario_panel} {Contraseña_panel}) | sed -e s/\\$/\\$\\$/g') 
+  # basicamente estoy similando el comando de arriba y lo mete en .env, que seria igual a        echo $(htpasswd -nbB usuario contraseña) | sed -e s/\\$/\\$\\$/g'
+  execute('mkdir data && cd data')
+  execute('rm -f acme.json')
+  execute('touch acme.json && chmod 600 acme.json')
+  execute('touch traefik.yml')
   with open('traefik.yml', "w", encoding="utf-8") as traefikyml:
     traefikyml.write(traefik_yml)
-  os.system('docker network create proxy')
-  os.system(f'echo $(htpasswd -nbB {Usuario_panel} {Contraseña_panel}) | sed -e s/\\$/\\$\\$/g >> .env')
+  execute('docker network create proxy')
+
   
   
   
-  os.system('exit')
+  
+  #voy por el minuto 20 del video, es decir, me queda todavia hacer el congif.yml
+  
+  
+  
+  
+  execute('docker compose up -d --force-recreate')
+  
+  execute('exit')
   
 def regreso_al_menu():
   INPUT()
@@ -238,7 +256,7 @@ def regreso_al_menu():
 #############
 # ejecucion #
 #############
-os.system('sudo apt update && sudo apt upgrade -y')
+execute('sudo apt update && sudo apt upgrade -y')
 
 
 # COMENTADO PARA PROBAR EN WINDOWS, DESCOMENTAR CUANDO SE FINALICE
