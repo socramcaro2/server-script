@@ -81,11 +81,11 @@ def docker():
   
   execute('curl -fsSL https://get.docker.com -o install-docker.sh')
   execute(f'sudo sh install-docker.sh {instalacion}')
-  execute('dockerd-rootless-setuptool.sh install')
+  execute('dockerd -rootless-setuptool.sh install')
   
 def portainer():
-  execute
-  
+  execute('docker volume create portainer_data')
+  execute('docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:2.21.5')
 
   
   
@@ -191,8 +191,8 @@ providers:
   docker:
     endpoint: "unix:///var/run/docker.sock"
     exposedByDefault: false
-  # file:
-  #   filename: /config.yml
+  file:
+    filename: /config.yml
 certificatesResolvers:
   cloudflare:
     acme:
@@ -210,6 +210,7 @@ certificatesResolvers:
     
   #comandos que se ejecutaran
   execute('sudo su')
+  execute('docker network create proxy')
   execute('mkdir docker_volumes && cd docker_volumes')
   execute('mkdir traefik && cd traefik')
   execute('touch docker-compose.yaml')
@@ -234,17 +235,11 @@ certificatesResolvers:
   execute('touch traefik.yml')
   with open('traefik.yml', "w", encoding="utf-8") as traefikyml:
     traefikyml.write(traefik_yml)
-  execute('docker network create proxy')
+  execute('touch config.yml')
 
-  
-  
-  
-  
-  #voy por el minuto 20 del video, es decir, me queda todavia hacer el congif.yml
-  
-  
-  
-  
+  # voy por el minuto 20 del video, es decir, me queda todavia hacer el congif.yml
+  # rellenar config.yml con un traefik config helper
+    
   execute('docker compose up -d --force-recreate')
   
   execute('exit')
@@ -256,8 +251,6 @@ def regreso_al_menu():
 #############
 # ejecucion #
 #############
-execute('sudo apt update && sudo apt upgrade -y')
-
 
 # COMENTADO PARA PROBAR EN WINDOWS, DESCOMENTAR CUANDO SE FINALICE
 # if os.geteuid() != 0:
@@ -267,6 +260,6 @@ execute('sudo apt update && sudo apt upgrade -y')
 #   INPUT()
 #   script()
 
-
+execute('sudo apt update && sudo apt upgrade -y')
 INPUT()
 script()
