@@ -37,6 +37,8 @@ Me he basado en la documentacion que tiene racher sobre su instalacion de Docker
 
 ## Portainer
 
+Basicamente sigue la guia oficial de portainer para instalar portainer CE
+
 
 ## Traefik (sin acabar)
  
