@@ -40,9 +40,10 @@ Me he basado en la documentacion que tiene racher sobre su instalacion de Docker
 Basicamente sigue la guia oficial de portainer para instalar portainer CE
 
 
-## Traefik (sin acabar)
+## Traefik
  
-Este script para instalar Traefik con docker me base en la guía de [TechnoTim para traefik 3](https://technotim.live/posts/traefik-3-docker-certificates/), simplemente sigo los pasos que indica la guia y dejo seleccionar algunos aspectos para que la instalacion sea tuya propia.
+Este script para instalar Traefik con docker me base en la guía de [TechnoTim para traefik 3](https://technotim.live/posts/traefik-3-docker-certificates/), simplemente sigo los pasos que indica la guia y dejo seleccionar algunos aspectos para que la instalacion sea tuya propia. 
+Para configurar dominios automaticamente estoy programando todavia un Traefik helper
 
 
 ## Futuro
