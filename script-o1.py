@@ -253,13 +253,13 @@ def regreso_al_menu():
 #############
 
 # COMENTADO PARA PROBAR EN WINDOWS, DESCOMENTAR CUANDO SE FINALICE
-# if os.geteuid() != 0:
-#   print('ejecuta con permisos sudo por favor')
-# else:
-#   os.system('sudo apt update && sudo apt upgrade -y')
-#   INPUT()
-#   script()
+if os.geteuid() != 0:
+  print('ejecuta con permisos sudo por favor')
+else:
+  os.system('sudo apt update && sudo apt upgrade -y')
+  INPUT()
+  script()
 
-execute('sudo apt update && sudo apt upgrade -y')
-INPUT()
-script()
+# execute('sudo apt update && sudo apt upgrade -y')
+# INPUT()
+# script()
